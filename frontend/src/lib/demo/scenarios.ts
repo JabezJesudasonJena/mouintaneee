@@ -3,8 +3,39 @@ import type { Scenario, DemoState } from './simulation-engine';
 
 function createBaseState(): Omit<DemoState, 'narrative' | 'isComplete'> {
   // Use route 1 (Valley Road) and route 2 (High Pass)
-  const routeA = SEED_DATA.routes[0];
-  const routeB = SEED_DATA.routes[1];
+  const routeA = { ...SEED_DATA.routes[0] };
+  const routeB = { ...SEED_DATA.routes[1] };
+
+  // Override with realistic Shimla-Kinnaur NH5 highway coordinates
+  routeA.geometry = {
+    type: 'LineString',
+    coordinates: [
+      [77.170, 31.100],
+      [77.175, 31.105],
+      [77.178, 31.112],
+      [77.182, 31.118],
+      [77.185, 31.125],
+      [77.190, 31.130],
+      [77.195, 31.132],
+      [77.200, 31.130],
+    ],
+  };
+
+  routeB.geometry = {
+    type: 'LineString',
+    coordinates: [
+      [77.170, 31.100],
+      [77.172, 31.108],
+      [77.168, 31.115],
+      [77.165, 31.122],
+      [77.160, 31.128],
+      [77.165, 31.135],
+      [77.172, 31.138],
+      [77.180, 31.136],
+      [77.190, 31.134],
+      [77.200, 31.130],
+    ],
+  };
 
   return {
     routes: [{ ...routeA, riskScore: 25 }, { ...routeB, riskScore: 40 }],

@@ -199,6 +199,7 @@ export default function DemoPage() {
                     driverLocations={demoState.driverLocations}
                     highlightedRouteId={demoState.activeRouteId}
                     className="h-[400px] rounded-xl border border-[var(--border-default)]"
+                    demoMode={true}
                   />
                   
                   {/* Slim Progress Overlay on Map */}

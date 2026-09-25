@@ -3,8 +3,10 @@
 import { useEffect, useRef, useCallback, useState } from 'react';
 import type { Route, HazardEvent, Hub, DriverLocation, GeoPoint } from '@/lib/data/types';
 
-// Dynamically import MapLibre to avoid SSR issues
-let maplibregl: typeof import('maplibre-gl') | null = null;
+import dynamic from 'next/dynamic';
+
+const MapLibreMap = dynamic(() => import('./MapLibreMap'), { ssr: false });
+
 
 interface MapViewProps {
   center?: [number, number];
@@ -18,7 +20,10 @@ interface MapViewProps {
   onMapReady?: (map: unknown) => void;
   interactive?: boolean;
   showControls?: boolean;
+  demoMode?: boolean;
 }
+
+
 
 // Simple SVG-based map as fallback / lightweight option
 function SVGMapFallback({
@@ -199,6 +204,9 @@ function SVGMapFallback({
 }
 
 export default function MapView(props: MapViewProps) {
-  // Use SVG-based map (works immediately, no tile server needed for demo)
+  if (props.demoMode) {
+    return <MapLibreMap {...props} />;
+  }
+  // Use SVG-based map as fallback for dashboard/driver
   return <SVGMapFallback {...props} />;
 }
