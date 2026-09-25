@@ -1,0 +1,222 @@
+@import "tailwindcss";
+
+/* ============================================================
+   MountainRoute Design Tokens
+   ============================================================ */
+
+@theme inline {
+  /* --- Forest Greens (Primary) --- */
+  --color-forest-950: #0a1f14;
+  --color-forest-900: #0f2e1d;
+  --color-forest-800: #1a4230;
+  --color-forest-700: #245a42;
+  --color-forest-600: #2d7254;
+  --color-forest-500: #3a8a66;
+  --color-forest-400: #4da87e;
+  --color-forest-300: #6ec49a;
+
+  /* --- Sage / Surface --- */
+  --color-sage-50: #f3f6f1;
+  --color-sage-100: #e8ede6;
+  --color-sage-200: #d4ddd0;
+  --color-sage-300: #b8c7b2;
+  --color-sage-400: #96ab8e;
+
+  /* --- Stone (neutral warm) --- */
+  --color-stone-50: #f5f3f0;
+  --color-stone-100: #eae7e2;
+  --color-stone-200: #d5d0c9;
+  --color-stone-300: #b8b0a5;
+  --color-stone-400: #968c7e;
+
+  /* --- Night Ops (Dark mode) --- */
+  --color-night-950: #080d0a;
+  --color-night-900: #0e1712;
+  --color-night-800: #162019;
+  --color-night-700: #1e2d23;
+  --color-night-600: #2a3d30;
+  --color-night-500: #375040;
+
+  /* --- Amber / Warning --- */
+  --color-amber-500: #d4820a;
+  --color-amber-400: #e09a2f;
+  --color-amber-300: #edb860;
+  --color-amber-200: #f5d08e;
+
+  /* --- Rust / Critical --- */
+  --color-rust-600: #b34525;
+  --color-rust-500: #cc5533;
+  --color-rust-400: #e07050;
+  --color-rust-300: #eda88c;
+
+  /* --- Info blue --- */
+  --color-info-500: #4a7fb5;
+  --color-info-400: #6a9ccb;
+  --color-info-300: #94bde0;
+
+  /* --- Typography --- */
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', monospace;
+}
+
+/* ============================================================
+   Base Styles
+   ============================================================ */
+:root {
+  --bg-primary: var(--color-sage-50);
+  --bg-surface: #ffffff;
+  --bg-panel: var(--color-sage-100);
+  --bg-elevated: #ffffff;
+  --text-primary: var(--color-forest-950);
+  --text-secondary: var(--color-forest-700);
+  --text-muted: var(--color-stone-400);
+  --border-default: var(--color-sage-200);
+  --border-subtle: var(--color-sage-100);
+  --focus-ring: var(--color-forest-500);
+}
+
+[data-theme="dark"] {
+  --bg-primary: var(--color-night-950);
+  --bg-surface: var(--color-night-900);
+  --bg-panel: var(--color-night-800);
+  --bg-elevated: var(--color-night-700);
+  --text-primary: var(--color-sage-200);
+  --text-secondary: var(--color-sage-300);
+  --text-muted: var(--color-night-500);
+  --border-default: var(--color-night-600);
+  --border-subtle: var(--color-night-700);
+  --focus-ring: var(--color-forest-400);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================
+   Focus States — visible, terrain-themed
+   ============================================================ */
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   Respect reduced motion
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   Scrollbar styling
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-sage-300);
+  border-radius: 3px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: var(--color-night-600);
+}
+
+/* ============================================================
+   Risk Score Animation
+   ============================================================ */
+@keyframes risk-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.risk-critical {
+  animation: risk-pulse 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .risk-critical {
+    animation: none;
+  }
+}
+
+/* ============================================================
+   Route animation
+   ============================================================ */
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+.route-animated {
+  stroke-dasharray: 8 12;
+  animation: dash-flow 1s linear infinite;
+}
+
+/* ============================================================
+   Maplibre overrides
+   ============================================================ */
+.maplibregl-map {
+  font-family: var(--font-sans) !important;
+}
+
+.maplibregl-ctrl-attrib {
+  font-size: 10px !important;
+}
+
+/* ============================================================
+   Utility classes for common patterns
+   ============================================================ */
+.mono {
+  font-family: var(--font-mono);
+  letter-spacing: -0.01em;
+}
+
+.surface {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+}
+
+.panel {
+  background: var(--bg-panel);
+}
+
+.elevated {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+}
+
+/* Number tween transition for risk scores */
+.number-tween {
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
