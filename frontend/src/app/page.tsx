@@ -337,6 +337,21 @@ export default function LandingPage() {
               <div className="text-xs text-[var(--text-muted)]">Active trip, navigation, reports</div>
             </div>
           </Link>
+
+          <Link
+            href="/demo"
+            className="group flex items-center gap-3 bg-[var(--bg-surface)] border border-[var(--border-default)] hover:border-[var(--color-forest-600)] text-[var(--text-primary)] px-6 py-3.5 rounded-lg transition-colors w-full sm:w-auto"
+          >
+            <div className="flex-shrink-0 w-9 h-9 rounded bg-[var(--bg-panel)] flex items-center justify-center">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="5 3 15 9 5 15 5 3" />
+              </svg>
+            </div>
+            <div className="text-left">
+              <div className="text-sm font-semibold">Interactive Demo</div>
+              <div className="text-xs text-[var(--text-muted)]">Run simulations & view features</div>
+            </div>
+          </Link>
         </div>
 
         {/* Capabilities */}
